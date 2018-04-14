@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/maomaoaichiyu/todo_app/issues"
   },
-  "homepage": "https://github.com/maomaoaichiyu/todo_app#readme"
+  "homepage": "https://github.com/maomaoaichiyu/todo_app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
