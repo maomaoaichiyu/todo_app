@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "pretest": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --ignore-path .gitignore .",
+    "autofix": "eslint --ignore-path .gitignore --fix ."
   },
   "repository": {
     "type": "git",
