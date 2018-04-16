@@ -1,12 +1,15 @@
 let express = require('express');
+let bodyParser = require('body-parser');
 let app = express();
+
+let jsonParser = bodyParser.json();
 
 app.get('/tasks', function (req, res) {
   console.log("Got a GET request for the tasks page");
   res.send('Hello GET');
 })
 
-app.post('/tasks', function (req, res) {
+app.post('/tasks', jsonParser, function (req, res) {
   console.log("Got a POST request for the tasks page");
   res.send('Hello POST');
 })
@@ -16,7 +19,7 @@ app.delete('/tasks/taskID', function (req, res) {
   res.send('Hello DELETE');
 })
 
-app.patch('/tasks/taskID', function (req, res) {
+app.patch('/tasks/taskID', jsonParser, function (req, res) {
   console.log("Got a PATCH request for tasks page with taskID");
   res.send('Hello DELETE');
 })
