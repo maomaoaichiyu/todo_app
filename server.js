@@ -11,17 +11,17 @@ app.get('/tasks', function (req, res) {
 
 app.post('/tasks', jsonParser, function (req, res) {
   console.log("Got a POST request for the tasks page");
-  res.send('Hello POST');
+  res.send(`post task ${JSON.stringify(req.body)}`);
 })
 
-app.delete('/tasks/taskID', function (req, res) {
+app.delete('/tasks/:taskID', function (req, res) {
   console.log("Got a DELETE request for tasks page with taskID");
-  res.send('Hello DELETE');
+  res.send(`delele task with ID ${req.params.taskID}`);
 })
 
-app.patch('/tasks/taskID', jsonParser, function (req, res) {
+app.patch('/tasks/:taskID', jsonParser, function (req, res) {
   console.log("Got a PATCH request for tasks page with taskID");
-  res.send('Hello DELETE');
+  res.send(`modify task with ID ${req.params.taskID}`);
 })
 
 let server = app.listen(8081, function () {
