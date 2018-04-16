@@ -1,10 +1,13 @@
 let uuid = require('uuid/v4');
 
 let tasks = {}
-
 module.exports = {
   getAll: function () {
-    return tasks
+    let tasks_array = []
+    Object.keys(tasks).forEach(function(taskID) {
+      tasks_array.push({id: taskID, task: tasks[taskID]})
+    });
+    return tasks_array
   },
   createTaskAndReturnID: function (task) {
     let task_id = uuid()
