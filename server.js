@@ -7,7 +7,7 @@ let jsonParser = bodyParser.json();
 
 app.get('/tasks', function (req, res) {
   console.log("Got a GET request for the tasks page");
-  res.send(store.getAll());
+  res.send(JSON.stringify(store.getAll()));
 })
 
 app.post('/tasks', jsonParser, function (req, res) {
@@ -18,7 +18,7 @@ app.post('/tasks', jsonParser, function (req, res) {
 
 app.get('/tasks/:taskID', function (req, res) {
   console.log("Got a GET request for a task with taskID");
-  res.send(store.getTaskByID(req.params.taskID));
+  res.send(JSON.stringify(store.getTaskByID(req.params.taskID)));
 })
 
 app.delete('/tasks/:taskID', function (req, res) {

@@ -4,7 +4,7 @@ let tasks = {}
 
 module.exports = {
   getAll: function () {
-    return JSON.stringify(tasks)
+    return tasks
   },
   createTaskAndReturnID: function (task) {
     let task_id = uuid()
@@ -12,7 +12,7 @@ module.exports = {
     return task_id
   },
   getTaskByID: function (taskID) {
-    return JSON.stringify(tasks[taskID])
+    return tasks[taskID]
   },
   deleteTaskByID: function (taskID) {
     delete tasks[taskID]
