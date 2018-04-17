@@ -15,23 +15,53 @@ app.get('/tasks', function(req, res) {
 
 app.post('/tasks', jsonParser, function(req, res) {
   console.log('Got a POST request for the tasks page');
+  if (!req.body.text) {
+    res.status(400).send('missing field text');
+    return;
+  }
   let task_id = store.createTaskAndReturnID(req.body);
-  res.send(task_id);
+  res.status(201).send(task_id);
 });
 
 app.get('/tasks/:taskID', function(req, res) {
   console.log('Got a GET request for a task with taskID');
-  res.json(store.getTaskByID(req.params.taskID));
+  let task = store.getTaskByID(req.params.taskID);
+  if (!task) {
+    res.status(404).send('task not found');
+    return;
+  }
+  res.json(task);
 });
 
 app.delete('/tasks/:taskID', function(req, res) {
   console.log('Got a DELETE request for tasks page with taskID');
+  let task = store.getTaskByID(req.params.taskID);
+  if (!task) {
+    res.status(404).send('task not found');
+    return;
+  }
   store.deleteTaskByID(req.params.taskID);
   res.send(`deleted task with ID ${req.params.taskID}`);
 });
 
 app.patch('/tasks/:taskID', jsonParser, function(req, res) {
   console.log('Got a PATCH request for tasks page with taskID');
+  let task = store.getTaskByID(req.params.taskID);
+  if (!task) {
+    res.status(404).send('task not found');
+    return;
+  }
+  if (Object.keys(req.body)
+    .filter(e => e !== 'text' && e !== 'checked').length > 0) {
+    res.status(400)
+      .send('the only properties allowed are "text" and "checked"');
+    return;
+  }
+  if (Object.keys(req.body).includes('checked')
+    && typeof req.body.checked !== 'boolean') {
+    res.status(400).send('checked must be a boolean');
+    return;
+  }
   store.modifyTaskByID(req.params.taskID, req.body);
   res.send(`modify task with ID ${req.params.taskID}`);
 });

@@ -10,8 +10,7 @@ module.exports = {
       Object.keys(tasks).forEach(taskID => {
         tasks_array.push({id: taskID, task: tasks[taskID]});
       });
-    }
-    else {
+    } else {
       Object.keys(tasks).forEach(taskID => {
         if (tasks[taskID]['groups'].includes(group)) {
           tasks_array.push({id: taskID, task: tasks[taskID]});
