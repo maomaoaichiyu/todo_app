@@ -9,7 +9,8 @@ let jsonParser = bodyParser.json();
 // api endpoint tasks
 app.get('/tasks', function(req, res) {
   console.log('Got a GET request for the tasks page');
-  res.send(JSON.stringify(store.getAllTasks()));
+  let groupFilter = req.query.group;
+  res.send(JSON.stringify(store.getAllTasks(groupFilter)));
 });
 
 app.post('/tasks', jsonParser, function(req, res) {
@@ -60,7 +61,7 @@ app.delete('/groups/:group', function(req, res) {
 
 app.put('/groups/:group/:taskID', function(req, res) {
   console.log('Got a PUT request for task in group');
-  store.attachTaskToGroup(req.params.groupID, req.params.taskID);
+  store.attachTaskToGroup(req.params.group, req.params.taskID);
   // eslint-disable-next-line max-len
   res.send(`added task with ID ${req.params.taskID} to group ${req.params.group}`);
 });

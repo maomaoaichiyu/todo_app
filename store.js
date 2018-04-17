@@ -4,11 +4,20 @@ let uuid = require('uuid/v4');
 let tasks = {};
 let groups = [];
 module.exports = {
-  getAllTasks: function() {
+  getAllTasks: function(group) {
     let tasks_array = [];
-    Object.keys(tasks).forEach(taskID => {
-      tasks_array.push({id: taskID, task: tasks[taskID]});
-    });
+    if (!group) {
+      Object.keys(tasks).forEach(taskID => {
+        tasks_array.push({id: taskID, task: tasks[taskID]});
+      });
+    }
+    else {
+      Object.keys(tasks).forEach(taskID => {
+        if (tasks[taskID]['groups'].includes(group)) {
+          tasks_array.push({id: taskID, task: tasks[taskID]});
+        }
+      });
+    }
     return tasks_array;
   },
   createTaskAndReturnID: function(task) {
