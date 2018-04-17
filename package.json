@@ -4,7 +4,7 @@
   "description": "a todo app for code challenge",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha",
     "lint": "eslint --ignore-path .gitignore .",
     "autofix": "eslint --ignore-path .gitignore --fix ."
   },
@@ -24,7 +24,9 @@
     "mongodb": "^3.0.7"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
-    "eslint-config-strongloop": "^2.1.0"
+    "eslint-config-strongloop": "^2.1.0",
+    "mocha": "^5.1.0"
   }
 }
