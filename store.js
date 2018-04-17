@@ -2,7 +2,7 @@
 let uuid = require('uuid/v4');
 
 let tasks = {};
-let labels = {};
+let groups = [];
 module.exports = {
   getAllTasks: function() {
     let tasks_array = [];
@@ -14,6 +14,7 @@ module.exports = {
   createTaskAndReturnID: function(task) {
     let task_id = uuid();
     tasks[task_id] = task;
+    task['groups'] = [];
     return task_id;
   },
   getTaskByID: function(taskID) {
@@ -25,25 +26,26 @@ module.exports = {
   modifyTaskByID: function(taskID, new_content) {
     tasks[taskID] = Object.assign(tasks[taskID], new_content);
   },
-  getAllLabels: function() {
-    let labels_array = [];
-    Object.keys(labels).forEach(labelID => {
-      labels_array.push({id: labelID, label: labels[labelID]});
+  getAllGroups: function() {
+    return groups;
+  },
+  createGroupAndReturn: function(group) {
+    if (!groups.includes(group)) {
+      groups.push(group);
+    }
+    return group;
+  },
+  getGroup: function(group) {
+    return groups.includes(group) ? group : '';
+  },
+  deleteGroup: function(group) {
+    Object.keys(tasks).forEach(taskID => {
+      tasks[taskID]['groups'] = tasks[taskID]['groups']
+        .filter(e => e !== group);
     });
-    return labels_array;
+    groups = groups.filter(e => e !== group);
   },
-  createLabelAndReturnID: function(label) {
-    let label_id = uuid();
-    labels[label_id] = label;
-    return label_id;
-  },
-  getLabelByID: function(labelID) {
-    return labels[labelID];
-  },
-  deleteLabelByID: function(labelID) {
-    delete labels[labelID];
-  },
-  modifyLabelByID: function(labelID, new_content) {
-    tasks[labelID] = Object.assign(labels[labelID], new_content);
+  attachTaskToGroup: function(group, taskID) {
+    tasks[taskID]['groups'].push(group);
   },
 };

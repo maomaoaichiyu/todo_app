@@ -35,34 +35,36 @@ app.patch('/tasks/:taskID', jsonParser, function(req, res) {
   res.send(`modify task with ID ${req.params.taskID}`);
 });
 
-// api endpoint labels
-app.get('/labels', function(req, res) {
-  console.log('Got a GET request for the labels');
-  res.send(JSON.stringify(store.getAllLabels()));
+// api endpoint groups
+app.get('/groups', function(req, res) {
+  console.log('Got a GET request for the groups');
+  res.send(JSON.stringify(store.getAllGroups()));
 });
 
-app.post('/labels', jsonParser, function(req, res) {
-  console.log('Got a POST request for the labels');
-  let label_id = store.createLabelAndReturnID(req.body);
-  res.send(label_id);
+app.post('/groups', jsonParser, function(req, res) {
+  console.log('Got a POST request for the groups');
+  let group = store.createGroupAndReturn(req.body.name);
+  res.send(group);
 });
 
-app.get('/labels/:labelID', function(req, res) {
-  console.log('Got a GET request for a label with labelID');
-  res.send(JSON.stringify(store.getLabelByID(req.params.labelID)));
+app.get('/groups/:group', function(req, res) {
+  console.log('Got a GET request for a group');
+  res.send(JSON.stringify(store.getGroup(req.params.group)));
 });
 
-app.delete('/labels/:labelID', function(req, res) {
-  console.log('Got a DELETE request for labels with labelID');
-  store.deleteLabelByID(req.params.labelID);
-  res.send(`deleted label with ID ${req.params.labelID}`);
+app.delete('/groups/:group', function(req, res) {
+  console.log('Got a DELETE request for a group');
+  store.deleteGroup(req.params.group);
+  res.send(`deleted group ${req.params.group}`);
 });
 
-app.patch('/labels/:labelID', jsonParser, function(req, res) {
-  console.log('Got a PATCH request for labels with labelID');
-  store.modifyLabelByID(req.params.labelID, req.body);
-  res.send(`modify label with ID ${req.params.labelID}`);
+app.put('/groups/:group/:taskID', function(req, res) {
+  console.log('Got a PUT request for task in group');
+  store.attachTaskToGroup(req.params.groupID, req.params.taskID);
+  // eslint-disable-next-line max-len
+  res.send(`added task with ID ${req.params.taskID} to group ${req.params.group}`);
 });
+
 
 let server = app.listen(8081, function() {
   let host = server.address().address;
