@@ -10,7 +10,7 @@ let jsonParser = bodyParser.json();
 app.get('/tasks', function(req, res) {
   console.log('Got a GET request for the tasks page');
   let groupFilter = req.query.group;
-  res.send(JSON.stringify(store.getAllTasks(groupFilter)));
+  res.json(store.getAllTasks(groupFilter));
 });
 
 app.post('/tasks', jsonParser, function(req, res) {
@@ -21,7 +21,7 @@ app.post('/tasks', jsonParser, function(req, res) {
 
 app.get('/tasks/:taskID', function(req, res) {
   console.log('Got a GET request for a task with taskID');
-  res.send(JSON.stringify(store.getTaskByID(req.params.taskID)));
+  res.json(store.getTaskByID(req.params.taskID));
 });
 
 app.delete('/tasks/:taskID', function(req, res) {
@@ -39,7 +39,7 @@ app.patch('/tasks/:taskID', jsonParser, function(req, res) {
 // api endpoint groups
 app.get('/groups', function(req, res) {
   console.log('Got a GET request for the groups');
-  res.send(JSON.stringify(store.getAllGroups()));
+  res.json(store.getAllGroups());
 });
 
 app.post('/groups', jsonParser, function(req, res) {
@@ -50,7 +50,7 @@ app.post('/groups', jsonParser, function(req, res) {
 
 app.get('/groups/:group', function(req, res) {
   console.log('Got a GET request for a group');
-  res.send(JSON.stringify(store.getGroup(req.params.group)));
+  res.json(store.getGroup(req.params.group));
 });
 
 app.delete('/groups/:group', function(req, res) {
