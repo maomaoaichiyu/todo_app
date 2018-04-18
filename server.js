@@ -120,6 +120,14 @@ app.put('/groups/:group/:taskID', function(req, res) {
   res.send(`added task with ID ${req.params.taskID} to group ${req.params.group}`);
 });
 
+app.use(function(req, res, next) {
+  res.status(404).send();
+})
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Internal server error')
+});
 
 let server = app.listen(8081, function() {
   let host = server.address().address;
