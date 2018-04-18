@@ -26,7 +26,10 @@ module.exports = {
   },
   close: function() {
     return databaseConnection.close()
-      .then(() => databaseConnection = undefined)
+      .then(() => {
+        databaseConnection = undefined;
+        return;
+      });
   },
   getAllTasks: function(group) {
     // db.collection(TASKS).drop();
