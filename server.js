@@ -74,23 +74,47 @@ app.get('/groups', function(req, res) {
 
 app.post('/groups', jsonParser, function(req, res) {
   console.log('Got a POST request for the groups');
+  if (!req.body.name) {
+    res.status(400).send('missing field name');
+    return;
+  }
   let group = store.createGroupAndReturn(req.body.name);
   res.send(group);
 });
 
 app.get('/groups/:group', function(req, res) {
   console.log('Got a GET request for a group');
-  res.json(store.getGroup(req.params.group));
+  let group = store.getGroup(req.params.group);
+  if (!group) {
+    res.status(404).send('group not found');
+    return;
+  }
+  res.json(group);
 });
 
 app.delete('/groups/:group', function(req, res) {
   console.log('Got a DELETE request for a group');
+  let group = store.getGroup(req.params.group);
+  if (!group) {
+    res.status(404).send('group not found');
+    return;
+  }
   store.deleteGroup(req.params.group);
   res.send(`deleted group ${req.params.group}`);
 });
 
 app.put('/groups/:group/:taskID', function(req, res) {
   console.log('Got a PUT request for task in group');
+  let group = store.getGroup(req.params.group);
+  if (!group) {
+    res.status(404).send('group not found');
+    return;
+  }
+  let task = store.getTaskByID(req.params.taskID);
+  if (!task) {
+    res.status(404).send('task not found');
+    return;
+  }
   store.attachTaskToGroup(req.params.group, req.params.taskID);
   // eslint-disable-next-line max-len
   res.send(`added task with ID ${req.params.taskID} to group ${req.params.group}`);
