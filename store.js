@@ -30,11 +30,11 @@ module.exports = {
   },
   deleteTaskByID: function(taskID) {
     delete tasks[taskID];
-    return Promise.resolve()
+    return Promise.resolve();
   },
   modifyTaskByID: function(taskID, new_content) {
     tasks[taskID] = Object.assign(tasks[taskID], new_content);
-    return Promise.resolve()
+    return Promise.resolve();
   },
   getAllGroups: function() {
     return Promise.resolve(groups);
@@ -54,7 +54,7 @@ module.exports = {
         .filter(e => e !== group);
     });
     groups = groups.filter(e => e !== group);
-    return Promise.resolve()
+    return Promise.resolve();
   },
   attachTaskToGroup: function(group, taskID) {
     tasks[taskID]['groups'].push(group);
