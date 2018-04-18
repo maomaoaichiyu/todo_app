@@ -2,8 +2,10 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let store = require('./mongoStore');
-let app = express();
 
+let PORT = process.env.PORT || 8081;
+
+let app = express();
 let jsonParser = bodyParser.json();
 
 // api endpoint tasks
@@ -154,7 +156,7 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Internal server error');
 });
 
-let server = app.listen(8081, function() {
+let server = app.listen(PORT, function() {
   let host = server.address().address;
   let port = server.address().port;
 
