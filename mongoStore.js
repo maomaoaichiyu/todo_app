@@ -1,7 +1,7 @@
 'use strict';
 var mongo = require('mongodb');
 let mongoClient = mongo.MongoClient;
-let url = 'mongodb://localhost:27017';
+let url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 let db;
 
 let DATABASE_NAME = 'todo';
