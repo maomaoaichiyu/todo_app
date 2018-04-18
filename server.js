@@ -4,9 +4,13 @@ let bodyParser = require('body-parser');
 let store = require('./mongoStore');
 
 let PORT = process.env.PORT || 8081;
+let CONNECTION_STRING = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+let DATABASE_NAME = process.env.DB_NAME || 'todo';
 
 let app = express();
 let jsonParser = bodyParser.json();
+
+store.init(CONNECTION_STRING, DATABASE_NAME);
 
 // api endpoint tasks
 app.get('/tasks', function(req, res) {

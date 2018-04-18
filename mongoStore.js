@@ -3,26 +3,30 @@ var mongo = require('mongodb');
 let mongoClient = mongo.MongoClient;
 let db;
 
-let CONNECTION_STRING = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-let DATABASE_NAME = process.env.DB_NAME || 'todo';
 let TASKS = 'tasks';
 let GROUPS = 'groups;';
 
-mongoClient.connect(CONNECTION_STRING, function(err, database) {
-  if (err) throw err;
-  console.log('Database created!');
-  db = database.db(DATABASE_NAME);
-  db.createCollection(TASKS, function(err, res) {
-    if (err) throw err;
-    console.log('Tasks collection created!');
-  });
-  db.createCollection(GROUPS, function(err, res) {
-    if (err) throw err;
-    console.log('Groups collection created!');
-  });
-});
-
 module.exports = {
+  init: function(connectionString, databaseName) {
+    return mongoClient.connect(connectionString)
+      .then((database) => {
+        console.log('Database created!');
+        db = database.db(databaseName);
+      })
+      .then(() => db.createCollection(TASKS))
+      .then(() => console.log('Tasks collection created!'))
+      .then(() => db.createCollection(GROUPS))
+      .then(() => console.log('Groups collection created!'));
+  },
+  reset: function() {
+    return db.collection(TASKS).remove()
+      .then(() => db.collection(GROUPS).remove());
+  },
+  close: function() {
+    db.close;
+    db = undefined;
+    return Promise.resolve();
+  },
   getAllTasks: function(group) {
     // db.collection(TASKS).drop();
     let query = group ? {groups: group} : {};

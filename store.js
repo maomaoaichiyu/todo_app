@@ -4,6 +4,17 @@ let uuid = require('uuid/v4');
 let tasks = {};
 let groups = [];
 module.exports = {
+  init: function() {
+    return Promise.resolve();
+  },
+  reset: function() {
+    tasks = {};
+    groups = [];
+    return Promise.resolve();
+  },
+  close: function() {
+    return Promise.resolve();
+  },
   getAllTasks: function(group) {
     let tasks_array = [];
     if (!group) {
