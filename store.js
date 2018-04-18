@@ -17,34 +17,36 @@ module.exports = {
         }
       });
     }
-    return tasks_array;
+    return Promise.resolve(tasks_array);
   },
   createTaskAndReturnID: function(task) {
     let task_id = uuid();
     tasks[task_id] = task;
     task['groups'] = [];
-    return task_id;
+    return Promise.resolve(task_id);
   },
   getTaskByID: function(taskID) {
-    return tasks[taskID];
+    return Promise.resolve(tasks[taskID]);
   },
   deleteTaskByID: function(taskID) {
     delete tasks[taskID];
+    return Promise.resolve()
   },
   modifyTaskByID: function(taskID, new_content) {
     tasks[taskID] = Object.assign(tasks[taskID], new_content);
+    return Promise.resolve()
   },
   getAllGroups: function() {
-    return groups;
+    return Promise.resolve(groups);
   },
   createGroupAndReturn: function(group) {
     if (!groups.includes(group)) {
       groups.push(group);
     }
-    return group;
+    return Promise.resolve(group);
   },
   getGroup: function(group) {
-    return groups.includes(group) ? group : '';
+    return Promise.resolve(groups.includes(group) ? group : '');
   },
   deleteGroup: function(group) {
     Object.keys(tasks).forEach(taskID => {
@@ -52,8 +54,10 @@ module.exports = {
         .filter(e => e !== group);
     });
     groups = groups.filter(e => e !== group);
+    return Promise.resolve()
   },
   attachTaskToGroup: function(group, taskID) {
     tasks[taskID]['groups'].push(group);
+    return Promise.resolve();
   },
 };
