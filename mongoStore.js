@@ -1,14 +1,14 @@
 'use strict';
 var mongo = require('mongodb');
 let mongoClient = mongo.MongoClient;
-let url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 let db;
 
-let DATABASE_NAME = 'todo';
+let CONNECTION_STRING = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+let DATABASE_NAME = process.env.DB_NAME || 'todo';
 let TASKS = 'tasks';
 let GROUPS = 'groups;';
 
-mongoClient.connect(url, function(err, database) {
+mongoClient.connect(CONNECTION_STRING, function(err, database) {
   if (err) throw err;
   console.log('Database created!');
   db = database.db(DATABASE_NAME);
