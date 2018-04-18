@@ -4,13 +4,13 @@ let store = require('../mongoStore');
 
 describe('MongoDB Store', function() {
 
-  before(() => store.init('mongodb://localhost:27017', 'todo'))
+  before(() => store.init('mongodb://localhost:27017', 'todo'));
 
-  after(() => store.close())
-  
+  after(() => store.close());
+
   describe('getAllTasks()', function() {
 
-    beforeEach(() => store.reset())
+    beforeEach(() => store.reset());
 
     it('should return empty array by default', function(done) {
       store.getAllTasks()
