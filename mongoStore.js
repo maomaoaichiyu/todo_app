@@ -1,6 +1,7 @@
 'use strict';
 var mongo = require('mongodb');
 let mongoClient = mongo.MongoClient;
+let databaseConnection;
 let db;
 
 let TASKS = 'tasks';
@@ -11,6 +12,7 @@ module.exports = {
     return mongoClient.connect(connectionString)
       .then((database) => {
         console.log('Database created!');
+        databaseConnection = database;
         db = database.db(databaseName);
       })
       .then(() => db.createCollection(TASKS))
@@ -23,9 +25,8 @@ module.exports = {
       .then(() => db.collection(GROUPS).remove());
   },
   close: function() {
-    db.close;
-    db = undefined;
-    return Promise.resolve();
+    return databaseConnection.close()
+      .then(() => databaseConnection = undefined)
   },
   getAllTasks: function(group) {
     // db.collection(TASKS).drop();
