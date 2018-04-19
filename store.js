@@ -57,7 +57,7 @@ module.exports = {
     return Promise.resolve(group);
   },
   getGroup: function(group) {
-    return Promise.resolve(groups.includes(group) ? group : '');
+    return Promise.resolve(groups.includes(group) ? {name: group} : '');
   },
   deleteGroup: function(group) {
     Object.keys(tasks).forEach(taskID => {
