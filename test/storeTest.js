@@ -85,7 +85,8 @@ describe('MongoDB Store', function() {
     it('should modify a task with the taskid', function(done) {
       store.createTaskAndReturnID({text: 'test'})
         .then((taskid) => {
-          return store.modifyTaskByID(taskid, {checked: true}).then(() => Promise.resolve(taskid));
+          return store.modifyTaskByID(taskid, {checked: true})
+            .then(() => Promise.resolve(taskid));
         })
         .then((taskid) => store.getTaskByID(taskid))
         .then((task) => {
@@ -158,10 +159,11 @@ describe('MongoDB Store', function() {
       store.createGroupAndReturn('group')
         .then(() => store.createTaskAndReturnID({text: 'test1'}))
         .then(() => store.createTaskAndReturnID({text: 'test2'}))
-        .then((taskid) => store.attachTaskToGroup('group', taskid).then(() => Promise.resolve(taskid)))
+        .then((taskid) => store.attachTaskToGroup('group', taskid)
+          .then(() => Promise.resolve(taskid)))
         .then((taskid) => store.getTaskByID(taskid))
         .then((task) => {
-          expect(task.groups.includes('group'))
+          expect(task.groups.includes('group'));
         })
         .then(() => store.getAllGroups())
         .then((groups) => {
