@@ -17,7 +17,8 @@ describe('MongoDB Store', function() {
         .then((tasks) => {
           expect(tasks.length).to.be.equal(0);
           done();
-        });
+        })
+        .catch(done);
     });
 
     it('should return all tasks', function(done) {
@@ -27,7 +28,8 @@ describe('MongoDB Store', function() {
         .then((tasks) => {
           expect(tasks.length).to.be.equal(2);
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -40,7 +42,8 @@ describe('MongoDB Store', function() {
         .then((taskid) => {
           expect(taskid).to.not.be.null;
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -54,7 +57,8 @@ describe('MongoDB Store', function() {
         .then((task) => {
           expect(task.text).to.be.equal('test');
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -69,7 +73,8 @@ describe('MongoDB Store', function() {
         .then((tasks) => {
           expect(tasks.length).to.be.equal(0);
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -86,7 +91,8 @@ describe('MongoDB Store', function() {
         .then((task) => {
           expect(task.checked).to.be.equal(true);
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -99,7 +105,8 @@ describe('MongoDB Store', function() {
         .then((groups) => {
           expect(groups.length).to.be.equal(0);
           done();
-        });
+        })
+        .catch(done);
     });
 
     it('should return all groups', function(done) {
@@ -109,7 +116,8 @@ describe('MongoDB Store', function() {
         .then((groups) => {
           expect(groups.length).to.be.equal(2);
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -122,7 +130,8 @@ describe('MongoDB Store', function() {
         .then((name) => {
           expect(name).to.be.equal('group');
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -136,7 +145,8 @@ describe('MongoDB Store', function() {
         .then((thegroup) => {
           expect(thegroup.name).to.be.equal('group');
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
@@ -161,7 +171,8 @@ describe('MongoDB Store', function() {
         .then((tasks) => {
           expect(tasks.length).to.be.equal(2);
           done();
-        });
+        })
+        .catch(done);
     });
   });
 
