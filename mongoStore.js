@@ -1,5 +1,5 @@
 'use strict';
-var mongo = require('mongodb');
+let mongo = require('mongodb');
 let mongoClient = mongo.MongoClient;
 let databaseConnection;
 let db;
@@ -10,10 +10,10 @@ let GROUPS = 'groups;';
 module.exports = {
   init: function(connectionString, databaseName) {
     return mongoClient.connect(connectionString)
-      .then((database) => {
+      .then((connection) => {
         console.log('Database created!');
-        databaseConnection = database;
-        db = database.db(databaseName);
+        databaseConnection = connection;
+        db = connection.db(databaseName);
       })
       .then(() => db.createCollection(TASKS))
       .then(() => console.log('Tasks collection created!'))
@@ -32,7 +32,6 @@ module.exports = {
       });
   },
   getAllTasks: function(group) {
-    // db.collection(TASKS).drop();
     let query = group ? {groups: group} : {};
     return db.collection(TASKS).find(query).toArray();
   },
