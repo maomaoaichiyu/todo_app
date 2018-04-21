@@ -1,6 +1,7 @@
 'use strict';
 let express = require('express');
 let bodyParser = require('body-parser');
+let cors = require('cors');
 let store = require('./mongoStore');
 
 let PORT = process.env.PORT || 8081;
@@ -11,6 +12,8 @@ let app = express();
 let jsonParser = bodyParser.json();
 
 store.init(CONNECTION_STRING, DATABASE_NAME);
+
+app.use(cors());
 
 // api endpoint tasks
 app.get('/tasks', function(req, res) {
