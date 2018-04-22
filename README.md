@@ -4,7 +4,7 @@
 
 This repository contains a simple Node.js application that can store tasks and group them. The data is stored in MongoDB. Inside 'extras' is possible to find a postman collection to interact with the server.
 
-The server is hosted here: (https://young-journey-45325.herokuapp.com)[https://young-journey-45325.herokuapp.com]
+The server is hosted here: [https://young-journey-45325.herokuapp.com](https://young-journey-45325.herokuapp.com)
 
 ## Endpoints
 
