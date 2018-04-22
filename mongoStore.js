@@ -57,10 +57,10 @@ module.exports = {
     return db.collection(GROUPS).findOne({name: groupName})
       .then((group) => {
         if (group) {
-          return groupName;
+          return Promise.resolve(groupName);
         }
         return db.collection(GROUPS).insertOne({name: groupName})
-          .then(() => groupName);
+          .then(() => Promise.resolve(groupName));
       });
   },
   getGroup: function(groupName) {
