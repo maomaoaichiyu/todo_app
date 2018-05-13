@@ -11,7 +11,7 @@ module.exports = {
   init: function(connectionString, databaseName) {
     return mongoClient.connect(connectionString)
       .then((connection) => {
-        console.log('Database created!');
+        console.log('Connected to MongoDB!');
         databaseConnection = connection;
         db = connection.db(databaseName);
       })
