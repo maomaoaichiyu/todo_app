@@ -69,7 +69,7 @@ module.exports = {
   deleteGroup: function(groupName) {
     return db.collection(GROUPS).deleteOne({name: groupName})
       .then(() => db.collection(TASKS)
-        .update({}, { $pull: { groups: groupName } }));
+        .update({ groups: groupName }, { $pull: { groups: groupName } }));
   },
   attachTaskToGroup: function(group, taskID) {
     let newvalues = { $push: {groups: group} };
